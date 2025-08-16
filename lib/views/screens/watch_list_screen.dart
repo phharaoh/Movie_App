@@ -11,6 +11,7 @@ class WatchListScreen extends StatelessWidget {
       context,
       listen: false,
     );
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
