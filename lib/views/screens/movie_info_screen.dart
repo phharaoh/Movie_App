@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/helper/theme/app_color.dart';
 
 class MovieInfoScreen extends StatelessWidget {
   const MovieInfoScreen({super.key});
@@ -6,19 +7,9 @@ class MovieInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Movie Info',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
+      backgroundColor: AppColors.movieDetailsScaffoldColor,
+      appBar: AppBar(),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: double.infinity,
@@ -31,22 +22,37 @@ class MovieInfoScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'The Last Journey',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
 
-          Text(
-            'The Last Journey',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          SizedBox(height: 20),
-          Text(
-            'A thrilling adventure that will keep you on the edge of your seat.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
+                Text(
+                  'Realese Date',
+                  style: TextStyle(
+                    color: AppColors.releaseDateTxtColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  'In a world where dreams and reality intertwine, a young artist discovers a hidden portal to a realm of endless creativity. As she navigates this enchanting landscape, she must confront her deepest fears and unlock the true power of her imagination to save both worlds from a looming darkness.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

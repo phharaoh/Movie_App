@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:movie_app/models/movie_model.dart';
 import 'package:movie_app/models/watch_list_model.dart';
 import 'package:movie_app/controller/movie_controller.dart';
+import 'package:movie_app/views/screens/movie_info_screen.dart';
 
 class ItemGridView extends StatefulWidget {
   const ItemGridView({super.key});
@@ -28,65 +29,78 @@ class _ItemGridViewState extends State<ItemGridView> {
         itemCount: featuredList.length,
         itemBuilder: (context, index) {
           final MovieModel movie = featuredList[index];
-          return Stack(
-            alignment: Alignment.topRight,
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => MovieInfoScreen()),
+              );
+            },
+            child: Stack(
+              alignment: Alignment.topRight,
 
-            children: [
-              Container(
-                width: 240,
-                height: 320,
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: AssetImage(movie.image),
-                    fit: BoxFit.cover,
+              children: [
+                Container(
+                  width: 240,
+                  height: 320,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      image: AssetImage(movie.image),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {
-                  final watchListControl = Provider.of<WatchListController>(
-                    context,
-                    listen: false,
-                  );
+                IconButton(
+                  onPressed: () {
+                    final watchListControl = Provider.of<WatchListController>(
+                      context,
+                      listen: false,
+                    );
 
-                  setState(() {
-                    movie.isBookmarked = !movie.isBookmarked;
-                  });
-                  if (!movie.isBookmarked) {
-                    watchListControl.addToWatchList(
-                      WatchListModel(
-                        title: movie.title,
-                        releaseDate: movie.releaseDate,
-                        image: movie.image,
-                      ),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('${movie.title} added to watchlist'),
-                      ),
-                    );
-                  } else {
-                    watchListControl.removeFromWatchList(
-                      WatchListModel(
-                        title: movie.title,
-                        releaseDate: movie.releaseDate,
-                        image: movie.image,
-                      ),
-                    );
-                  }
-                },
-                icon: Icon(
-                  !movie.isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                  size: 30,
-                  color: Colors.yellow,
+                    setState(() {
+                      movie.isBookmarked = !movie.isBookmarked;
+                    });
+                    if (!movie.isBookmarked) {
+                      watchListControl.addToWatchList(
+                        WatchListModel(
+                          title: movie.title,
+                          releaseDate: movie.releaseDate,
+                          image: movie.image,
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${movie.title} added to watchlist'),
+                        ),
+                      );
+                    } else {
+                      watchListControl.removeFromWatchList(
+                        WatchListModel(
+                          title: movie.title,
+                          releaseDate: movie.releaseDate,
+                          image: movie.image,
+                        ),
+                      );
+                    }
+                  },
+                  icon: Icon(
+                    !movie.isBookmarked
+                        ? Icons.bookmark
+                        : Icons.bookmark_border,
+                    size: 30,
+                    color: Colors.yellow,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
+     
         },
       ),
     );
   }
 }
+
+
+
