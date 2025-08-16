@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/helper/theme/app_color.dart';
 import 'package:movie_app/views/screens/home_screen.dart';
 import 'package:movie_app/views/screens/watch_list_screen.dart';
 
@@ -10,20 +11,34 @@ class WrapperHome extends StatefulWidget {
 }
 
 class _WrapperHomeState extends State<WrapperHome> {
-  final int _currentIndex = 0;
+  int _currentIndex = 0;
 
   final List<Widget> _bodyScreens = [HomeScreen(), WatchListScreen()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _bodyScreens[0],
+      body: _bodyScreens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined)),
-          BottomNavigationBarItem(icon: Icon(Icons.bookmark_border_outlined)),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bookmark_border_outlined),
+            label: 'Watch List',
+          ),
         ],
+        backgroundColor: AppColors.bottomNavBarColor,
+        selectedItemColor: AppColors.white,
+        unselectedItemColor: AppColors.unSelectedIconColor,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }
